@@ -1,91 +1,83 @@
 <template>
   <container-app>
-<main class="p-20">
+    <main class="p-20">
+      
       <ul class="flex flex-wrap mx-auto">
-         <li
-         :id="movie.id"
+        <li
+          :id="movie.id"
           v-for="movie in movies"
           :key="movie.id"
           class="relative w-[550px] h-[370px]"
-          
         >
-       <router-link :to="'/movie/' + movie.id">
-        <img v-if="movie.backdrop_path"
-            :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
-            alt="movie.title"
-            loading="lazy"
-            class="rounded block w-[550px] h-[370px]"
-          />
-          <p class="absolute left-2 bottom-2 text-xl text-red-200">
-            {{ movie.title }}
-          </p>
-       </router-link>
+          <router-link :to="'/movie/' + movie.id">
+            <img
+              v-if="movie.backdrop_path"
+              :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
+              alt="movie.title"
+              loading="lazy"
+              class="rounded block w-[550px] h-[370px]"
+            />
+            <p class="absolute left-2 bottom-2 text-xl text-red-200">
+              {{ movie.title }}
+            </p>
+          </router-link>
         </li>
       </ul>
-      <div class="flex flex-col">
-        <!-- <PaginationApp
-          :totalPages="totalPages"
-          :perPage="20"
-          :currentPage="currentPage"
-          @pagechanged="onPageChange"
-        /> -->
-      </div>
-  </main>
+
+      <div class="hello">
+    <VueTailwindPagination
+      :current="currentPage"
+      :total="totalPages"
+      :per-page="perPage"
+      @page-changed="onPageClick($event)"
+      text-before-input="Go to page"
+      text-after-input="Forward"
+   />
+  </div>
+    </main>
   </container-app>
-  
 </template>
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
 import { getPopularMovies } from "../services/movie.service";
-/* import PaginationApp from "../components/PaginationApp.vue"; */
+import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
+
 export default {
   name: "HomePage",
   components: {
-    /* PaginationApp, */
     ContainerApp,
+    VueTailwindPagination,
   },
 
   data() {
     return {
       movies: [],
-     totalPages: null,
+      totalPages: null,
       currentPage: 1,
-      
+     perPage: 20,
     };
   },
-  methods: {
-    onPageChange(page) {
-      console.log(page);
-      this.currentPage = page;
+
+ methods: {
+    getMovies() {
+      getPopularMovies(this.currentPage).then((data) => {
+        console.log(data);
+        this.movies = data.data.results;
+        this.totalPages = data.data.total_pages;
+        this.currentPage = data.data.page;
+      });
     },
-  },
-
-  async mounted() {
-    const body = {
-      page: this.$route.params.page,
-    };
-
-    try {
-      const { data } = await getPopularMovies(body);
-      this.movies = data.results;
-      this.totalPages = data.total_pages;
-    } catch (error) {
-      console.error(error);
+    onPageClick(event){
+      this.currentPage = event;
+      this.getMovies(this.currentPage);
     }
   },
 
-  // async created() {
-    
-  //   try {
-  //     const { id } = this.$route.params;
-  //     const { data } = await getMovieDetails(id);
-  //     this.movieDetails = data;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
+  mounted() {
+    this.currentPage = 1;
+    this.getMovies(this.currentPage);
+  },
 };
 </script>
 
