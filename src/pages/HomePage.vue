@@ -1,6 +1,7 @@
 <template>
   <container-app>
     <main class="p-20">
+
       <ul v-if="movies" class="flex flex-wrap mx-auto">
         <li :id="movie.id" v-for="movie in movies" :key="movie.id" class="relative w-[550px] h-[370px]">
           <router-link :to="'/movie/' + movie.id">
@@ -23,7 +24,7 @@
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
-import { getPopularMovies } from "../services/movie.service";
+import { getPopularMovies} from "../services/movie.service";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 
 export default {

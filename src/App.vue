@@ -1,20 +1,14 @@
 <template>
-  
-    <header-app/>
+  <header-app />
   <router-view />
-
-  <footer-app/>
- 
-  
+  <footer-app />
 </template>
 
 <script>
 export default {
-  name: 'App',
-  
-  components: {
-    
-  },
-}
+  name: "App",
+
+  components: {},
+};
 </script>
 <style></style>

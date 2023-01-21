@@ -43,7 +43,6 @@ import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 
 import genres from "../components/genres";
 
-
 export default {
   name: "DiscoverPage",
   components: {

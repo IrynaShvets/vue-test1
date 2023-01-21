@@ -3,7 +3,7 @@ import LibraryPage from "./pages/LibraryPage.vue";
 import NotFound from "./pages/NotFound.vue";
 import MoviePage from "./pages/MoviePage.vue";
 import DiscoverPage from "./pages/DiscoverPage.vue";
-// import SearchPage from "./pages/SearchPage.vue";
+import SearchPage from "./pages/SearchPage.vue";
 
 
 import { createRouter, createWebHistory } from "vue-router";
@@ -31,14 +31,9 @@ const routes = [
     props: true 
   },
   {
-    path: '/search',
-    component: () => import('@/pages/SearchPage.vue'),
-    props: route => ({ query: route.query.q }),
-			beforeEnter: (to, from, next) => {
-				next()
-			}
-    
-
+    path: "/search",
+    name: "searchPage",
+    component: SearchPage,
   },
   { 
     path: '/:pathMatch(.*)*', 
