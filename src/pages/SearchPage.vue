@@ -3,7 +3,7 @@
     <main class="p-20">
       <label for="search">
         Search
-        <input id="search" v-model="term" @keypress.enter="search(term)" />
+        <input id="search" v-model="query" @keypress.enter="search(query)" />
       </label>
 
       <ul v-if="filteredMovies" class="flex flex-wrap mx-auto">
@@ -33,7 +33,6 @@
           :current="currentPage"
           :total="totalResults"
           :per-page="perPage"
-          
           @page-changed="onPageClick($event)"
           text-before-input="Go to page"
           text-after-input="Forward"
@@ -61,8 +60,7 @@ export default {
       totalResults: null,
       currentPage: 1,
       perPage: 20,
-      searchQuery: "",
-      term: null,
+     query: "",
     };
   },
 
@@ -73,10 +71,10 @@ export default {
       },
       set() {
         this.movies = this.getSearchMovies();
-        const results = this.movies.filter((movie) => {
+        const results = this.movies?.filter((movie) => {
           return movie.title
             .toLowerCase()
-            .includes(this.searchQuery.toLowerCase());
+            .includes(this.query.toLowerCase().trim());
         });
         this.movies = results;
       },
@@ -84,21 +82,34 @@ export default {
   },
 
   methods: {
-    search(term) {
-      getSearchMovies(this.currentPage, this.searchQuery).then((data) => {
+    search(query) {
+      getSearchMovies(query, this.currentPage).then((data) => {
+        console.log(data)
+
+       if (query === "") {
+        alert("Ви нічого не ввели")
+        return
+       }
+
+       if (data.data === 0) {
+        return
+       }
+
         this.movies = data.data.results;
         this.totalResults =
           data.data.total_results > 9980 ? 9980 : data.data.total_results;
         this.currentPage = data.data.page;
-        this.searchQuery = term;
+        this.query = query;
+ console.log(this.query)
         this.movies = this.movies.filter((movie) => {
-          return movie.title.toLowerCase().includes(term.toLowerCase());
+          return movie.title.toLowerCase().includes(query.toLowerCase().trim());
         });
       });
     },
+
     onPageClick(event) {
       this.currentPage = event;
-      this.search(this.currentPage);
+      this.search(this.query, this.currentPage);
     },
   },
 };
