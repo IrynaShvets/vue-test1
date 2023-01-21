@@ -1,6 +1,22 @@
 <template>
   <container-app>
-    <main class="p-20">
+    <main>
+<section class="max-w-xs relative my-0 mx-auto">
+  <div @click="isVisible = !isVisible" class="h-10 py-1.5 px-2.5 flex justify-between items-center text-xl font-medium rounded-sm border-2 border-solid border-purple-700">
+    <span>Select Items</span>
+  </div>
+  <div class="absolute w-full border-2 border-solid border-purple-700 top-[46px] inset-x-0 bg-white">
+    <input v-model="searchQuery" type="text" placeholder="Search" class="w-[90%] w-[30px] pl-1 text-base border-solid border-purple-700">
+  
+    <ul v-if="genres" class="max-h-[200px] overflow-x-hidden overflow-y-scroll">
+        <li :id="genre.id" v-for="genre in genres" :key="genre.id" class="w-full ">
+              {{ genre.name }}
+        </li>
+      </ul>
+  </div>
+</section>
+
+
       <ul v-if="movies" class="flex flex-wrap mx-auto">
         <li :id="movie.id" v-for="movie in movies" :key="movie.id" class="relative w-[550px] h-[370px]">
           <router-link :to="'/movie/' + movie.id">
@@ -12,7 +28,6 @@
           </router-link>
         </li>
       </ul>
-
       <div class="hello">
         <VueTailwindPagination :current="currentPage" :total="totalResults" :per-page="perPage"
           @page-changed="onPageClick($event)" text-before-input="Go to page" text-after-input="Forward" />
@@ -23,14 +38,18 @@
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
-import { getPopularMovies } from "../services/movie.service";
+import { getMoviesOfSelectedGenre } from "../services/movie.service";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 
+import genres from "../components/genres";
+
+
 export default {
-  name: "HomePage",
+  name: "DiscoverPage",
   components: {
     ContainerApp,
     VueTailwindPagination,
+   
   },
 
   data() {
@@ -39,13 +58,23 @@ export default {
       totalResults: null,
       currentPage: 1,
       perPage: 20,
+      genres: genres,
+      searchQuery: '',
+      selectedItem: null,
+      isVisible: false,
     };
   },
-  
+  computed: {
+    
+  },
+
   methods: {
-    getMovies() {
-      getPopularMovies(this.currentPage).then((data) => {
-        console.log(data);
+    
+    getGenres() {
+      // this.$route.params.id
+      getMoviesOfSelectedGenre(this.currentPage, this.genreId).then((data) => {
+        console.log(data.data);
+        this.genreId = this.$route.params.genre;
         this.movies = data.data.results;
         this.totalResults = data.data.total_results;
         this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
@@ -57,13 +86,17 @@ export default {
       this.currentPage = event;
       this.getMovies(this.currentPage);
     },
+
+    
   },
 
   mounted() {
-    this.getMovies();
+   
+    this.getGenres();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
 </style>
