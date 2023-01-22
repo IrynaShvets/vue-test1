@@ -26,7 +26,7 @@
           <span class="font-semibold">Tagline:</span> {{ movie.tagline }}.
         </p>
         
-        <button @click="addFavoriteMovieToLocalStorage" type="submit">Add to favorite movies</button>
+        <button @click="addFavoriteMovieToLocalStorage" type="submit" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">Add to favorite movies</button>
       </div>
 </div>
  
@@ -47,27 +47,18 @@ export default {
   data() {
     return {
        movie: null,
-       moviesStore: JSON.parse(localStorage.getItem("movie-store")),
-      //  moviesStore: JSON.parse(localStorage.getItem("movie-store") || '[]'),
+       moviesStore: JSON.parse(localStorage.getItem("movie-store") || '[]'),
     
     };
   },
-
+ 
   methods: {
     addFavoriteMovieToLocalStorage() {
-   // const cloneMovieId = this.movie.id;
-
-   // console.log(cloneMovieId)
     this.moviesStore.push(this.movie.id);
     this.movie.id = "";
     localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
-
   },
-
-    getMovies() {
-      // this.moviesStore = JSON.parse(localStorage.getItem("movie-store"));
-    },
-  },
+},
 
   mounted() {
     getMovieDetails(this.$route.params.id).then(data => {
@@ -76,7 +67,4 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

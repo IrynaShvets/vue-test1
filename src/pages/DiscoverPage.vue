@@ -48,7 +48,7 @@
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
-import { getMoviesOfSelectedGenre } from "../services/movie.service";
+import { getMoviesOfSelectedGenre, getGenre } from "../services/movie.service";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 
 import genres from "../components/genres";
@@ -104,16 +104,23 @@ export default {
 
   },
 
+  // .then(async movies => {
+  //     const genres = await api.fetchGenre();
+  //     return { movies, genres };
+  //   })
+
   mounted() {
-   getMoviesOfSelectedGenre( this.currentPage).then((data) => {
+   getMoviesOfSelectedGenre( this.currentPage).then(() => {
+//console.log(data)data
+getGenre()
   //  this.genreId,
   //       this.genreId = genres
-        this.movies = data.data.results;
-        this.totalResults = data.data.total_results;
-        this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
-        this.currentPage = data.data.page;
+      //   this.movies = data.data.results;
+      //   this.totalResults = data.data.total_results;
+      //   this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
+      //   this.currentPage = data.data.page;
       });
-    // this.getGenres();
+   
   },
 };
 </script>

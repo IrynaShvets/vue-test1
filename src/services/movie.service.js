@@ -21,3 +21,7 @@ export const getMoviesOfSelectedYear = (year, page) => {
 export const getMoviesOfSelectedGenre = (genre, page) => {
   return axios.get(`discover/movie?api_key=${API_KEY}&with_genres=${genre}&page=${page}`);
 };
+
+export const getGenre = () => {
+  return axios.get(`genre/movie/list?api_key=${API_KEY}&language=en-US`);
+}

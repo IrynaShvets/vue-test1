@@ -86,7 +86,6 @@ export default {
   methods: {
     search(query) {
       getSearchMovies(query, this.currentPage).then((data) => {
-        console.log(data)
 
        if (query.trim() === "") {
         return

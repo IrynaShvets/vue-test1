@@ -1,29 +1,95 @@
- <template>
-    <div>
-    <h1>Library page</h1>
-    </div>
+<template>
+  <container-app>
+    <main class="p-20">
+      <ul v-if="movies" class="grid grid-cols-3 gap-4">
+        <li
+          :id="movie.id"
+          v-for="movie in movies"
+          :key="movie.id"
+          class="relative w-[350px] h-[260px] shadow-[10px_10px_8px_2px_rgba(0,0,0,0.3)] hover:scale-[1.05] hover:transition hover:duration-700 hover:ease-in-out"
+        >
+            <img
+              v-if="movie.backdrop_path"
+              :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
+              :alt="movie.title"
+              loading="lazy"
+              class="mr-6 w-[350px] h-[220px]"
+            />
+            <p class="absolute top-2 left-2 text-white">
+              {{ movie.title }}
+            </p>
+          <router-link :to="'/movie/' + movie.id">
+            <span>Перейти до повного опису фільму</span>
+          </router-link>
+          <button @click="deleteFavoriteMovieWithLocalStorage" :data-id="movie.id" type="button" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">
+            Delete with library
+          </button>
+        </li>
+      </ul>
+    </main>
+  </container-app>
 </template>
 
 <script>
+import ContainerApp from "../shared/container/ContainerApp.vue";
+import { getPopularMovies } from "../services/movie.service";
+
 export default {
   name: "LibraryPage",
+  components: {
+    ContainerApp,
+  },
   data() {
     return {
-       movie: null,
-     //  moviesStore: JSON.parse(localStorage.getItem("movie-store")),
-      
+      movies: [],
+      currentPage: 1,
+      moviesStore: JSON.parse(localStorage.getItem("movie-store") || "[]"),
     };
-  
-  },
-  methods: {
-    
-  getMovies() {
-     // this.moviesStore = JSON.parse(localStorage.getItem("movie-store") || '[]');
-        },
   },
 
+  methods: {
+    getMovies() {
+      getPopularMovies(this.currentPage).then((data) => {
+        this.currentPage = data.data.page;
+        let arrFavoriteMovies = [];
+        this.moviesStore.forEach((element) => {
+          data.data.results.map((el) => {
+            if (el.id === element) {
+              arrFavoriteMovies.push(el);
+            }
+          });
+        });
+        this.movies = arrFavoriteMovies;
+      });
+    },
+
+    deleteFavoriteMovieWithLocalStorage(e) {
+       console.log(e.target)
+     
+       const currentId = e.target.getAttribute("data-id");
+       console.log(currentId)
+
+      const filterMoviesStore = this.moviesStore.findIndex((el) => {
+       return el === currentId
+      });
+     
+      if (filterMoviesStore === -1) {
+        this.moviesStore.splice(filterMoviesStore, 1);
+        e.target.parentNode.remove();
+        localStorage.setItem(
+              "movie-store",
+              JSON.stringify(this.moviesStore)
+            );
+      }
+      
+    },
+  },
+
+  mounted() {
+    this.getMovies();
+  },
 };
 </script>
 
-<style lang="scss" scoped></style> -->
-
+<style lang="scss" scoped></style>
+-->

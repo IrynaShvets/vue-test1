@@ -46,7 +46,6 @@ export default {
   methods: {
     getMovies() {
       getPopularMovies(this.currentPage).then((data) => {
-        console.log(data);
         this.movies = data.data.results;
         this.totalResults = data.data.total_results;
         this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
