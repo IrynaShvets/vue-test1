@@ -55,13 +55,13 @@ export default {
 
   methods: {
     addFavoriteMovieToLocalStorage() {
-    const cloneMovieId = this.movie.id;
+   // const cloneMovieId = this.movie.id;
 
-    console.log(cloneMovieId)
-    
-    localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
-    this.moviesStore.push(cloneMovieId);
+   // console.log(cloneMovieId)
+    this.moviesStore.push(this.movie.id);
     this.movie.id = "";
+    localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
+
   },
 
     getMovies() {
