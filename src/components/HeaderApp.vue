@@ -70,6 +70,7 @@ export default {
     color: #09054b;
     font-weight: bold;
 }
+
   </style>
 
 

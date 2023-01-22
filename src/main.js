@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import './main.css';
 import '@ocrv/vue-tailwind-pagination/styles'
+
 import HeaderApp from './components/HeaderApp.vue';
 import FooterApp from './components/FooterApp.vue';
 import router from "./router";

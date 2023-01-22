@@ -1,10 +1,10 @@
 <template>
-  <main class="relative py-3">
-    <div v-if="movie" class="flex p-6">
-
-      <img v-if="movie.backdrop_path" :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
-        :alt="movie.title" loading="lazy" class="rounded mr-6" />
-      <div>
+  <main class="px-36 py-12">
+    <div v-if="movie" class="">
+<div class="flex">
+  <img v-if="movie.backdrop_path" :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
+        :alt="movie.title" loading="lazy" class="rounded w-[550px] h-[370px] shadow-[-15px_-10px_21px_7px_rgba(145,33,234,0.75)]" />
+      <div class="ml-6">
         <h4 class="mb-4 text-slate-500 text-lg leading-relaxed">
           <span class="font-semibold">Original title:</span>
           {{ movie.original_title }}
@@ -15,14 +15,22 @@
         </p>
         <p class="my-4 text-slate-500 text-lg leading-relaxed">
           <span class="font-semibold">Genres of cinema:</span>
-          {{ movie.genres }}.
+          <ul v-if="movie.genres">
+            <li :id="genre.id" v-for="genre in movie.genres" :key="genre.id">
+              <p>{{ genre.name }}</p>
+            </li>
+          </ul>
+          
         </p>
         <p class="my-4 text-slate-500 text-lg leading-relaxed">
           <span class="font-semibold">Tagline:</span> {{ movie.tagline }}.
         </p>
+        
+        <button @click="addFavoriteMovieToLocalStorage" type="submit">Add to favorite movies</button>
       </div>
-
-      <p class="p-6 text-slate-500 text-lg leading-relaxed">1111
+</div>
+ 
+      <p class="p-6 text-slate-500 text-lg leading-relaxed">
         {{ movie.overview }}
       </p>
     </div>
@@ -31,15 +39,38 @@
 
 <script>
 import { getMovieDetails } from "../services/movie.service";
-
+// import { ref } from 'vue'
 export default {
   name: "MoviePage",
   components: {},
 
+//   props: {
+//  movies: Array,
+//   },
+
   data() {
     return {
-      movie: null,
+       movie: null,
+       moviesStore: [],
+      //movie: ref([]),
+      //name: ref(''),
     };
+  },
+
+  methods: {
+    addFavoriteMovieToLocalStorage() {
+       
+       const cloneMovieId = this.movie.id
+     
+    
+    this.moviesStore.push(cloneMovieId);
+    localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
+    this.movie.id = "";
+     
+  },
+  getMovies() {
+      this.moviesStore = JSON.parse(localStorage.getItem("movie-store"));
+        },
   },
 
   mounted() {

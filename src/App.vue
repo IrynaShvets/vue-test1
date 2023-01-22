@@ -1,6 +1,7 @@
 <template>
   <header-app />
   <router-view />
+
   <footer-app />
 </template>
 

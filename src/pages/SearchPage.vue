@@ -3,7 +3,7 @@
     <main class="p-20">
       <label for="search">
         Search
-        <input id="search" v-model="query" @keypress.enter="search(query)" />
+        <input id="search" v-model="query" @keypress.enter="search(query)" placeholder="Search by title of movie" class="w-['400px'] v-['60px'] mx-auto mb-['20px']"/>
       </label>
 
       <ul v-if="filteredMovies" class="flex flex-wrap mx-auto">
@@ -30,6 +30,7 @@
 
       <div class="hello">
         <VueTailwindPagination
+      
           :current="currentPage"
           :total="totalResults"
           :per-page="perPage"
@@ -61,6 +62,7 @@ export default {
       currentPage: 1,
       perPage: 20,
      query: "",
+     
     };
   },
 
@@ -86,23 +88,21 @@ export default {
       getSearchMovies(query, this.currentPage).then((data) => {
         console.log(data)
 
-       if (query === "") {
-        alert("Ви нічого не ввели")
+       if (query.trim() === "") {
         return
        }
 
-       if (data.data === 0) {
+       if (!data) {
         return
        }
 
         this.movies = data.data.results;
         this.totalResults =
-          data.data.total_results > 9980 ? 9980 : data.data.total_results;
+        data.data.total_results > 9980 ? 9980 : data.data.total_results;
         this.currentPage = data.data.page;
         this.query = query;
- console.log(this.query)
         this.movies = this.movies.filter((movie) => {
-          return movie.title.toLowerCase().includes(query.toLowerCase().trim());
+        return movie.title.toLowerCase().includes(query.toLowerCase().trim());
         });
       });
     },

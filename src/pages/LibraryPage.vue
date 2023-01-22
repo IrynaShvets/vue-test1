@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div>
     <h1>Library page</h1>
     </div>
@@ -7,7 +7,23 @@
 <script>
 export default {
   name: "LibraryPage",
+  data() {
+    return {
+       movie: null,
+       moviesStore: [],
+      
+    };
+  
+  },
+  methods: {
+    
+  getMovies() {
+      this.moviesStore = JSON.parse(localStorage.getItem("movie-store"));
+        },
+  },
+
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style> -->
+
