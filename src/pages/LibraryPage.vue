@@ -10,7 +10,7 @@ export default {
   data() {
     return {
        movie: null,
-       moviesStore: [],
+     //  moviesStore: JSON.parse(localStorage.getItem("movie-store")),
       
     };
   
@@ -18,7 +18,7 @@ export default {
   methods: {
     
   getMovies() {
-      this.moviesStore = JSON.parse(localStorage.getItem("movie-store"));
+     // this.moviesStore = JSON.parse(localStorage.getItem("movie-store") || '[]');
         },
   },
 

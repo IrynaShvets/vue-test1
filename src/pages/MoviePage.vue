@@ -39,38 +39,34 @@
 
 <script>
 import { getMovieDetails } from "../services/movie.service";
-// import { ref } from 'vue'
+
 export default {
   name: "MoviePage",
   components: {},
 
-//   props: {
-//  movies: Array,
-//   },
-
   data() {
     return {
        movie: null,
-       moviesStore: [],
-      //movie: ref([]),
-      //name: ref(''),
+       moviesStore: JSON.parse(localStorage.getItem("movie-store")),
+      //  moviesStore: JSON.parse(localStorage.getItem("movie-store") || '[]'),
+    
     };
   },
 
   methods: {
     addFavoriteMovieToLocalStorage() {
-       
-       const cloneMovieId = this.movie.id
-     
+    const cloneMovieId = this.movie.id;
+
+    console.log(cloneMovieId)
     
-    this.moviesStore.push(cloneMovieId);
     localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
+    this.moviesStore.push(cloneMovieId);
     this.movie.id = "";
-     
   },
-  getMovies() {
-      this.moviesStore = JSON.parse(localStorage.getItem("movie-store"));
-        },
+
+    getMovies() {
+      // this.moviesStore = JSON.parse(localStorage.getItem("movie-store"));
+    },
   },
 
   mounted() {
