@@ -1,7 +1,7 @@
 <template>
-  <header class="flex flex-wrap py-2 bg-gradient-to-r from-gray-500 via-purple-500 to-pink-500">
+  <header class="flex flex-wrap py-2 bg-[#1B065E]">
     <div class="flex items-center justify-between w-full px-10">
-      <nav class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 rounded">
+      <nav class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-[#FF47DA] rounded">
         <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div @click="goTo" class="w-full cursor-pointer relative flex items-center justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
             <svg class="inline-block w-10 h-10 stroke-current stroke-0 fill-white" viewBox="0 0 32 32">

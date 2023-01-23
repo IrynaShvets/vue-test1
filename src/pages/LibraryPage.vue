@@ -52,7 +52,6 @@ export default {
   },
 
   methods: {
-
     deleteFavoriteMovieWithLocalStorage(currentId) {
      console.log(currentId)
    
@@ -63,4 +62,3 @@ export default {
 </script>
 
 <style lang="scss" scoped></style>
--->
