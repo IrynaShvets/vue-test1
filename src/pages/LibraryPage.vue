@@ -37,7 +37,6 @@
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
 import {  toRaw } from 'vue';
-// import { getPopularMovies } from "../services/movie.service";isProxy,
 
 export default {
   name: "LibraryPage",
@@ -45,8 +44,6 @@ export default {
     ContainerApp,
   },
   data() {
-    console.log(localStorage.getItem("movie-store"))
-    console.log(JSON.parse(localStorage.getItem("movie-store")))
     return {
       movies: [],
       currentPage: 1,
@@ -55,53 +52,13 @@ export default {
   },
 
   methods: {
-    // getMovies() {
-    //   getPopularMovies(this.currentPage).then((data) => {
-    //     this.currentPage = data.data.page;
-    //     let arrFavoriteMovies = [];
-    //     this.moviesStore.forEach((element) => {
-    //       data.data.results.map((el) => {
-    //         if (el.id === element) {
-    //           arrFavoriteMovies.push(el);
-    //         }
-    //       });
-    //     });
-    //     this.movies = arrFavoriteMovies;
-    //   });
-    // },
 
     deleteFavoriteMovieWithLocalStorage(currentId) {
      console.log(currentId)
-    // const deleteElInObj = {...this.moviesStore}
-     console.log(this.moviesStore)
-     
-      //  const currentId = e.target.getAttribute("data-id");
-      //  
-      
-
-      // const filterMoviesStore = this.moviesStore.findIndex((el) => {
-      //   console.log(el)
-      //  return el.id === currentId
-      // });
-     
-      // if (filterMoviesStore !== -1) {
-      //   console.log(this.moviesStore)
-      //   delete this.moviesStore[filterMoviesStore]
-      //  // this.moviesStore.splice(filterMoviesStore, 1);
-      // //  e.target.parentNode.remove();
-      //   localStorage.setItem(
-      //         "movie-store",
-      //         JSON.stringify(this.moviesStore)
-      //       );
-        
-      // }
-      
+   
     },
   },
 
-  // mounted() {
-  //   this.getMovies();
-  // },
 };
 </script>
 

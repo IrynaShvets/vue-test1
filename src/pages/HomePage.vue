@@ -1,9 +1,8 @@
 <template>
   <container-app>
     <main class="">
-
       <ul v-if="movies" class="grid grid-cols-5 gap-2">
-        <li :id="movie.id" v-for="movie in movies" :key="movie.id" class="relative w-[240px] h-[180px] shadow-[-2px_1px_32px_36px_rgba(105,186,23,0.75)] hover:scale-[1.03] hover:transition hover:duration-700 hover:ease-in-out">
+        <li :id="movie.id" v-for="movie in movies" :key="movie.id" class="relative w-[240px] h-[180px] shadow-[-2px_1px_32px_36px_rgba(10,18,23,0.75)] hover:scale-[1.03] hover:transition hover:duration-700 hover:ease-in-out">
           <router-link :to="'/movie/' + movie.id">
               <img v-if="movie.backdrop_path ||  movie.backdrop_path !== null" :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
               :alt="movie.title" loading="lazy" class="w-[240px] h-[180px]" />

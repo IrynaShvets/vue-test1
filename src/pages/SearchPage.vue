@@ -1,7 +1,7 @@
 <template>
   <container-app>
     <main>
-      <div class="bg-red-200 p-10 mb-2">
+      <div class="bg-gray-200 p-10 mb-2">
         <h1 class="text-3xl mb-2 indent-8 text-blue-600">
           Have a great time watching movies. Find your favorite movie.
         </h1>
@@ -24,7 +24,6 @@
           class="relative w-[402px] h-auto shadow-[-24px_29px_28px_-4px_rgba(148,153,143,0.75)] hover:scale-[1.02] hover:transition hover:duration-600 hover:ease-in"
         >
           <router-link :to="'/movie/' + movie.id">
-           
             <img
             v-if="movie.backdrop_path || movie.backdrop_path !== null"
               :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
@@ -32,7 +31,6 @@
               loading="lazy"
               class="rounded w-[402px] h-auto]"
             />
-            
             <p class="absolute left-2 bottom-2 text-xl text-red-200">
               {{ movie.title }}
             </p>
@@ -76,56 +74,32 @@ export default {
     };
   },
 
-  // computed: {
-  //   filteredMovies: {
-  //     get() {
-  //       return this.movies;
-  //     },
-  //     set() {
-  //       this.movies = this.getSearchMovies();
-  //       const results = this.movies?.filter((movie) => {
-  //         return movie.title
-  //           .toLowerCase()
-  //           .includes(this.query.toLowerCase().trim());
-  //       });
-  //       this.movies = results;
-  //     },
-  //   },
-  // },
-
-
   methods: {
     search() {
       
       if (this.query.length === 0) {
           this.$notify({
             type: "warn",
-  text: "You have not entered anything. Please enter a value.",
-});
+            text: "You have not entered anything. Please enter a value.",
+          });
           return;
-        }
+      }
 
       getSearchMovies(this.query, this.currentPage).then((data) => {
         
-
         if (!data) {
           this.$notify({
-            type: "warn",
-  text: "Sorry, but nothing was found for your request.",
-});
+          type: "warn",
+          text: "Sorry, but nothing was found for your request.",
+        });
           return;
         }
-
-
+       
         this.movies = data.data.results;
         this.totalResults =
-          data.data.total_results > 9980 ? 9980 : data.data.total_results;
-
+        data.data.total_results > 9980 ? 9980 : data.data.total_results;
+        
         this.currentPage = data.data.page;
-      //  this.query = query;
-        // this.movies = this.movies.filter((movie) => {
-        //   return movie.title.toLowerCase().includes(this.query.toLowerCase().trim());
-        // });
       });
     },
 

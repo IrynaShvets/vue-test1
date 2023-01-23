@@ -28,7 +28,7 @@
         
         <button @click="addFavoriteMovieToLocalStorage" type="submit" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">Add to favorite movies</button>
       </div>
-</div>
+     </div>
  
       <p class="p-6 text-slate-500 text-lg leading-relaxed">
         {{ movie.overview }}
@@ -48,17 +48,21 @@ export default {
     return {
        movie: null,
        moviesStore: JSON.parse(localStorage.getItem("movie-store") || '[]'),
-    
     };
   },
  
   methods: {
     addFavoriteMovieToLocalStorage() {
-    this.moviesStore.push({
+      
+    JSON.parse(localStorage.getItem("movie-store")) 
+
+               
+      this.moviesStore.push({
       id: this.movie.id,
       title: this.movie.title,
       backdrop_path: this.movie.backdrop_path,
     });
+    
     this.movie.id = "";
     localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
   },

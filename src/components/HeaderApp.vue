@@ -1,5 +1,5 @@
 <template>
-  <header class="flex flex-wrap py-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+  <header class="flex flex-wrap py-2 bg-gradient-to-r from-gray-500 via-purple-500 to-pink-500">
     <div class="flex items-center justify-between w-full px-10">
       <nav class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-gradient-to-l from-indigo-500 via-purple-500 to-pink-500 rounded">
         <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">

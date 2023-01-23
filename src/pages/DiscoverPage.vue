@@ -15,7 +15,7 @@
             bg-gray-100
             border-transparent
             outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]
-          " name="select-genre">
+          ">
                <option v-for="item in genres" :key="item.id" :value="item.id">
                   {{ item.name }}
                 </option>
