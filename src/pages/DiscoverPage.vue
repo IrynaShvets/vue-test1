@@ -1,37 +1,58 @@
 <template>
   <container-app>
     <main>
-<section class="max-w-xs relative my-0 mx-auto">
-  <div @click="isVisible = !isVisible" class="h-10 py-1.5 px-2.5 flex justify-between items-center text-xl font-medium rounded-sm border-2 border-solid border-purple-700">
-   
-    <span v-if="selectedItem">{{ selectedItem.name }}</span>
-     <span else>Selected genre</span>
-    <svg class="inline-block w-3.5 h-3.5 stroke-current stroke-0 fill-gray" viewBox="0 0 24 24">
-      <path d="M7.406 8.578l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z"></path>
-    </svg>
-  </div>
-  <div v-if="isVisible" class="absolute w-full border-2 border-solid border-purple-700 top-[46px] inset-x-0 bg-white">
-    <input v-model="searchQuery" type="text" placeholder="Search" class="w-[90%] w-[30px] pl-1 text-base border-2 border-solid border-purple-700">
-  
-    <ul v-if="genres" class="max-h-[200px] overflow-x-hidden overflow-y-scroll">
-        <li @click="genre" :id="genre.id" v-for="genre in genres" :key="genre.id" class="w-full border-1 border-solid border-purple-700 p-2.5 cursor-pointer text-base hover:bg-sky-700 ">
-              {{ genre.name }}
-        </li>
-      </ul>
+      <section class="max-w-xs relative my-0 mx-auto">
+        
+<!-- @click="selectItem(genre)" -->
+    <form class="" @submit.prevent="handleSubmit">
+        <ul class="flex mb-10">
+          <li v-if="genres" id="v-model-select-dynamic" class="">
+            <span class="text-white">Filter by genres</span>
+            <select v-model.lazy="genres" class="block
+            w-[270px]
+            mr-2
+            mt-1
+            rounded-md
+            bg-gray-100
+            border-transparent
+            outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]
+          " name="select-genre">
+               <option v-for="item in genres" :key="item.id">
+                  {{ item.name }}
+                </option>
+          </select>
+          </li>
+          
+          <li class="">
+            <span class="text-white">Filter by year of release</span>
+            <select id="yearsId" class="block
+            w-[270px]
+            mt-1
+            rounded-md
+            bg-gray-100
+            border-transparent
+            outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]"></select>
+          </li>
+        </ul>
+      </form>
 
-      <ul v-if="genres" class="max-h-[200px] overflow-x-hidden overflow-y-scroll">
-        <li @click="selectItem(genre)" :id="genre.id" v-for="genre in filteredMoviesByGenres" :key="genre.id" class="w-full ">
-              {{ genre.name }}
-        </li>
-      </ul>
-  </div>
-</section>
+      </section>
 
       <ul v-if="movies" class="flex flex-wrap mx-auto">
-        <li :id="movie.id" v-for="movie in movies" :key="movie.id" class="relative w-[550px] h-[370px]">
+        <li
+          :id="movie.id"
+          v-for="movie in movies"
+          :key="movie.id"
+          class="relative w-[550px] h-[370px]"
+        >
           <router-link :to="'/movie/' + movie.id">
-            <img v-if="movie.backdrop_path" :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
-              alt="movie.title" loading="lazy" class="rounded block w-[550px] h-[370px]" />
+            <img
+              v-if="movie.backdrop_path"
+              :src="'https://image.tmdb.org/t/p/original' + movie.backdrop_path"
+              alt="movie.title"
+              loading="lazy"
+              class="rounded block w-[550px] h-[370px]"
+            />
             <p class="absolute left-2 bottom-2 text-xl text-red-200">
               {{ movie.title }}
             </p>
@@ -39,8 +60,14 @@
         </li>
       </ul>
       <div class="hello">
-        <VueTailwindPagination :current="currentPage" :total="totalResults" :per-page="perPage"
-          @page-changed="onPageClick($event)" text-before-input="Go to page" text-after-input="Forward" />
+        <VueTailwindPagination
+          :current="currentPage"
+          :total="totalResults"
+          :per-page="perPage"
+          @page-changed="onPageClick($event)"
+          text-before-input="Go to page"
+          text-after-input="Forward"
+        />
       </div>
     </main>
   </container-app>
@@ -51,14 +78,12 @@ import ContainerApp from "../shared/container/ContainerApp.vue";
 import { getMoviesOfSelectedGenre, getGenre } from "../services/movie.service";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 
-import genres from "../components/genres";
-
 export default {
   name: "DiscoverPage",
   components: {
     ContainerApp,
     VueTailwindPagination,
-   
+
   },
 
   data() {
@@ -67,13 +92,13 @@ export default {
       totalResults: null,
       currentPage: 1,
       perPage: 20,
-      genres: genres,
+      genres: [],
       searchQuery: '',
       selectedItem: null,
-      isVisible: false,
       genreId: null,
     };
   },
+
   computed: {
     filteredMoviesByGenres() {
       const query = this.searchQuery.toLowerCase();
@@ -83,48 +108,57 @@ export default {
       return this.movies.filter(movie => {
         return Object.values(movie).some(word => String(word).includes(query))
       })
-    }
+    },
+
   },
 
   methods: {
-    
     selectItem(genre) {
       this.selectedItem = genre;
       this.isVisible = false;
     },
-    
+
     onPageClick(event) {
       this.currentPage = event;
       this.getMovies(this.currentPage);
     },
 
-    // genresInName(genres) {
-    //   console.log(genres)
-    // }
+    getMoviesByGenre() {
+      getMoviesOfSelectedGenre(this.genreId, this.currentPage).then((data) => {
+        this.movies = data.data.results;
+         this.totalResults = data.data.total_results;
+         this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
+         this.currentPage = data.data.page;
+      })
+    },
+
+    getGenres() {
+      getGenre().then((data) => {
+        this.genres = data.data.genres;
+        this.genreId = data.data.genres.map(el => el.id);
+      })
+    },
+
+    handleSubmit() {
+        this.$emit("submit", {
+          name: this.name,
+        });
+      },
+
+    // listeners() {
+    //     return {
+    //       ...this.$attrs,
+    //       input: (event) => this.$emit("input", event.target.value),
+    //     };
+    //   },
+
 
   },
 
-  // .then(async movies => {
-  //     const genres = await api.fetchGenre();
-  //     return { movies, genres };
-  //   })
-
-  mounted() {
-   getMoviesOfSelectedGenre( this.currentPage).then(() => {
-//console.log(data)data
-getGenre()
-  //  this.genreId,
-  //       this.genreId = genres
-      //   this.movies = data.data.results;
-      //   this.totalResults = data.data.total_results;
-      //   this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
-      //   this.currentPage = data.data.page;
-      });
-   
+  created() {
+    this.getGenres()
+  // this.getMoviesByGenre()
   },
 };
-</script>
 
-<style lang="scss" scoped>
-
-</style>
+</script><style lang="scss" scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <container-app>
-    <main class="p-20">
+    <main>
       <ul v-if="movies" class="grid grid-cols-3 gap-4">
         <li
           :id="movie.id"
@@ -19,9 +19,13 @@
               {{ movie.title }}
             </p>
           <router-link :to="'/movie/' + movie.id">
-            <span>Перейти до повного опису фільму</span>
+            <svg class="inline-block w-5 h-5 stroke-current stroke-0 fill-gray mr-2" viewBox="0 0 20 20">
+                <path d="M3.828 9l6.071-6.071-1.414-1.414-8.485 8.485 8.485 8.485 1.414-1.414-6.071-6.071h16.172v-2h-16.172z"></path>
+            </svg>
+            <span>Go to full description of movie</span>
           </router-link>
           <button @click="deleteFavoriteMovieWithLocalStorage" :data-id="movie.id" type="button" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">
+            
             Delete with library
           </button>
         </li>
@@ -80,6 +84,7 @@ export default {
               "movie-store",
               JSON.stringify(this.moviesStore)
             );
+        
       }
       
     },
