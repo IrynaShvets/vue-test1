@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.7",
     "@heroicons/vue": "^2.0.13",
+    "@kyvg/vue3-notification": "^2.8.0",
     "@ocrv/vue-tailwind-pagination": "^0.0.4",
     "autoprefixer": "^10.4.13",
     "axios": "^1.2.3",

@@ -54,7 +54,11 @@ export default {
  
   methods: {
     addFavoriteMovieToLocalStorage() {
-    this.moviesStore.push(this.movie.id);
+    this.moviesStore.push({
+      id: this.movie.id,
+      title: this.movie.title,
+      backdrop_path: this.movie.backdrop_path,
+    });
     this.movie.id = "";
     localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
   },

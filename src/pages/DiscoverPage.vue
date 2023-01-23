@@ -1,14 +1,13 @@
 <template>
   <container-app>
     <main>
-      <section class="max-w-xs relative my-0 mx-auto">
+    <section class="block relative my-0 mx-auto bg-pink-300 p-2">
         
-<!-- @click="selectItem(genre)" -->
     <form class="" @submit.prevent="handleSubmit">
         <ul class="flex mb-10">
           <li v-if="genres" id="v-model-select-dynamic" class="">
             <span class="text-white">Filter by genres</span>
-            <select v-model.lazy="genres" class="block
+            <select v-model="genreId" class="block
             w-[270px]
             mr-2
             mt-1
@@ -17,7 +16,7 @@
             border-transparent
             outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]
           " name="select-genre">
-               <option v-for="item in genres" :key="item.id">
+               <option v-for="item in genres" :key="item.id" :value="item.id">
                   {{ item.name }}
                 </option>
           </select>
@@ -59,7 +58,7 @@
           </router-link>
         </li>
       </ul>
-      <div class="hello">
+      <div class="p-10">
         <VueTailwindPagination
           :current="currentPage"
           :total="totalResults"
@@ -83,7 +82,6 @@ export default {
   components: {
     ContainerApp,
     VueTailwindPagination,
-
   },
 
   data() {
@@ -109,7 +107,6 @@ export default {
         return Object.values(movie).some(word => String(word).includes(query))
       })
     },
-
   },
 
   methods: {
@@ -135,7 +132,6 @@ export default {
     getGenres() {
       getGenre().then((data) => {
         this.genres = data.data.genres;
-        this.genreId = data.data.genres.map(el => el.id);
       })
     },
 
@@ -145,20 +141,19 @@ export default {
         });
       },
 
-    // listeners() {
-    //     return {
-    //       ...this.$attrs,
-    //       input: (event) => this.$emit("input", event.target.value),
-    //     };
-    //   },
-
-
   },
 
   created() {
     this.getGenres()
-  // this.getMoviesByGenre()
   },
+
+  watch: {
+    genreId(newValue) {
+      if(newValue) {
+        this.getMoviesByGenre();
+      }
+    }
+  }
 };
 
 </script><style lang="scss" scoped></style>

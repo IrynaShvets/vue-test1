@@ -1,7 +1,7 @@
 <template>
   <header-app />
   <router-view />
-
+  <notifications />
   <footer-app />
 </template>
 

@@ -1,10 +1,10 @@
 <template>
   <container-app>
     <main>
-      <ul v-if="movies" class="grid grid-cols-3 gap-4">
+      <ul class="grid grid-cols-3 gap-4">
         <li
           :id="movie.id"
-          v-for="movie in movies"
+          v-for="movie in moviesStore"
           :key="movie.id"
           class="relative w-[350px] h-[260px] shadow-[10px_10px_8px_2px_rgba(0,0,0,0.3)] hover:scale-[1.05] hover:transition hover:duration-700 hover:ease-in-out"
         >
@@ -24,7 +24,7 @@
             </svg>
             <span>Go to full description of movie</span>
           </router-link>
-          <button @click="deleteFavoriteMovieWithLocalStorage" :data-id="movie.id" type="button" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">
+          <button @click="deleteFavoriteMovieWithLocalStorage(movie.id)" :data-id="movie.id" type="button" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">
             
             Delete with library
           </button>
@@ -36,7 +36,8 @@
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
-import { getPopularMovies } from "../services/movie.service";
+import {  toRaw } from 'vue';
+// import { getPopularMovies } from "../services/movie.service";isProxy,
 
 export default {
   name: "LibraryPage",
@@ -44,55 +45,63 @@ export default {
     ContainerApp,
   },
   data() {
+    console.log(localStorage.getItem("movie-store"))
+    console.log(JSON.parse(localStorage.getItem("movie-store")))
     return {
       movies: [],
       currentPage: 1,
-      moviesStore: JSON.parse(localStorage.getItem("movie-store") || "[]"),
+      moviesStore: toRaw(JSON.parse(localStorage.getItem("movie-store") || "[]")),
     };
   },
 
   methods: {
-    getMovies() {
-      getPopularMovies(this.currentPage).then((data) => {
-        this.currentPage = data.data.page;
-        let arrFavoriteMovies = [];
-        this.moviesStore.forEach((element) => {
-          data.data.results.map((el) => {
-            if (el.id === element) {
-              arrFavoriteMovies.push(el);
-            }
-          });
-        });
-        this.movies = arrFavoriteMovies;
-      });
-    },
+    // getMovies() {
+    //   getPopularMovies(this.currentPage).then((data) => {
+    //     this.currentPage = data.data.page;
+    //     let arrFavoriteMovies = [];
+    //     this.moviesStore.forEach((element) => {
+    //       data.data.results.map((el) => {
+    //         if (el.id === element) {
+    //           arrFavoriteMovies.push(el);
+    //         }
+    //       });
+    //     });
+    //     this.movies = arrFavoriteMovies;
+    //   });
+    // },
 
-    deleteFavoriteMovieWithLocalStorage(e) {
-       console.log(e.target)
+    deleteFavoriteMovieWithLocalStorage(currentId) {
+     console.log(currentId)
+    // const deleteElInObj = {...this.moviesStore}
+     console.log(this.moviesStore)
      
-       const currentId = e.target.getAttribute("data-id");
-       console.log(currentId)
+      //  const currentId = e.target.getAttribute("data-id");
+      //  
+      
 
-      const filterMoviesStore = this.moviesStore.findIndex((el) => {
-       return el === currentId
-      });
+      // const filterMoviesStore = this.moviesStore.findIndex((el) => {
+      //   console.log(el)
+      //  return el.id === currentId
+      // });
      
-      if (filterMoviesStore === -1) {
-        this.moviesStore.splice(filterMoviesStore, 1);
-        e.target.parentNode.remove();
-        localStorage.setItem(
-              "movie-store",
-              JSON.stringify(this.moviesStore)
-            );
+      // if (filterMoviesStore !== -1) {
+      //   console.log(this.moviesStore)
+      //   delete this.moviesStore[filterMoviesStore]
+      //  // this.moviesStore.splice(filterMoviesStore, 1);
+      // //  e.target.parentNode.remove();
+      //   localStorage.setItem(
+      //         "movie-store",
+      //         JSON.stringify(this.moviesStore)
+      //       );
         
-      }
+      // }
       
     },
   },
 
-  mounted() {
-    this.getMovies();
-  },
+  // mounted() {
+  //   this.getMovies();
+  // },
 };
 </script>
 

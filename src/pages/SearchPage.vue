@@ -9,17 +9,17 @@
           <input
             type="text"
             v-model="query"
-            @keypress.enter="search(query)"
+            @keypress.enter="search"
             placeholder="Search by title of movie"
             class="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border border-slate-300 outline-none focus:outline-none focus:ring w-full"
           />
         </div>
       </div>
 
-      <ul v-if="filteredMovies" class="grid grid-cols-3 gap-5">
+      <ul v-if="movies" class="grid grid-cols-3 gap-5">
         <li
           :id="movie.id"
-          v-for="movie in filteredMovies"
+          v-for="movie in movies"
           :key="movie.id"
           class="relative w-[402px] h-auto shadow-[-24px_29px_28px_-4px_rgba(148,153,143,0.75)] hover:scale-[1.02] hover:transition hover:duration-600 hover:ease-in"
         >
@@ -76,44 +76,56 @@ export default {
     };
   },
 
-  computed: {
-    filteredMovies: {
-      get() {
-        return this.movies;
-      },
-      set() {
-        this.movies = this.getSearchMovies();
-        const results = this.movies?.filter((movie) => {
-          return movie.title
-            .toLowerCase()
-            .includes(this.query.toLowerCase().trim());
-        });
-        this.movies = results;
-      },
-    },
-  },
+  // computed: {
+  //   filteredMovies: {
+  //     get() {
+  //       return this.movies;
+  //     },
+  //     set() {
+  //       this.movies = this.getSearchMovies();
+  //       const results = this.movies?.filter((movie) => {
+  //         return movie.title
+  //           .toLowerCase()
+  //           .includes(this.query.toLowerCase().trim());
+  //       });
+  //       this.movies = results;
+  //     },
+  //   },
+  // },
 
 
   methods: {
-    search(query) {
-      getSearchMovies(query, this.currentPage).then((data) => {
-        if (query.trim() === "") {
+    search() {
+      
+      if (this.query.length === 0) {
+          this.$notify({
+            type: "warn",
+  text: "You have not entered anything. Please enter a value.",
+});
           return;
         }
 
+      getSearchMovies(this.query, this.currentPage).then((data) => {
+        
+
         if (!data) {
+          this.$notify({
+            type: "warn",
+  text: "Sorry, but nothing was found for your request.",
+});
           return;
         }
+
 
         this.movies = data.data.results;
         this.totalResults =
           data.data.total_results > 9980 ? 9980 : data.data.total_results;
 
         this.currentPage = data.data.page;
-        this.query = query;
-        this.movies = this.movies.filter((movie) => {
-          return movie.title.toLowerCase().includes(query.toLowerCase().trim());
-        });
+      //  this.query = query;
+        // this.movies = this.movies.filter((movie) => {
+        //   return movie.title.toLowerCase().includes(this.query.toLowerCase().trim());
+        // });
       });
     },
 
