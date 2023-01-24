@@ -33,6 +33,18 @@
                   Library
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link to="/login" active-class="active-link" exact-active-class="exact-active-link"
+                  class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                  Login
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/registration" active-class="active-link" exact-active-class="exact-active-link"
+                  class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                  Registration
+                </router-link>
+              </li>
             </ul>
            <div class="lg:flex lg:flex-grow items-center">
           </div>

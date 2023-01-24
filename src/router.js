@@ -4,7 +4,8 @@ import NotFound from "./pages/NotFound.vue";
 import MoviePage from "./pages/MoviePage.vue";
 import DiscoverPage from "./pages/DiscoverPage.vue";
 import SearchPage from "./pages/SearchPage.vue";
-
+import LoginPage from "./pages/LoginPage.vue";
+import RegistrationPage from "./pages/RegistrationPage.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -34,6 +35,16 @@ const routes = [
     path: "/search",
     name: "searchPage",
     component: SearchPage,
+  },
+  {
+    path: "/login",
+    name: "loginPage",
+    component: LoginPage,
+  },
+  {
+    path: "/registration",
+    name: "registrationPage",
+    component: RegistrationPage,
   },
   { 
     path: '/:pathMatch(.*)*', 
