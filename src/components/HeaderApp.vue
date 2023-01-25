@@ -1,7 +1,7 @@
 <template>
   <header class="flex flex-wrap py-2 bg-[#1B065E]">
     <div class="flex items-center justify-between w-full px-10">
-      <div>
+      <div else>
         <nav
           class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-[#FF47DA] rounded"
         >
@@ -58,7 +58,7 @@
         </nav>
       </div>
 
-      <div class="">
+      <div v-if="user" class="">
           <span class="">Ім'я</span>
           <svg class="" width="16" height="18" viewBox="0 0 16 18">
             <path
@@ -107,7 +107,6 @@
             </li>
           </ul>
         </div>
-
 
       <ul class="flex">
         <li class="text-sky-900 hover:text-sky-800 mr-10">

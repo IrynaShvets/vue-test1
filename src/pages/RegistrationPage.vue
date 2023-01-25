@@ -96,49 +96,46 @@
 </template>
 
 <script>
-import {mapState} from "pinia";
-import {useAuthStore} from "../store/index";
+import { mapWritableState } from "pinia";
+import { useAuthStore } from "../store/index";
 
 export default {
-  name: 'RegistrationPage',
-
-  data() {
-    return {
-      formData: {
-        name: "",
-        email: "",
-        password: "",
-      },
-    };
-  },
+  name: "RegistrationPage",
 
   computed: {
-   ...mapState(useAuthStore, ["user"]),
+    ...mapWritableState(useAuthStore, ["formData"]),
   },
 
   methods: {
-      goTo() {
-        this.$router.push({name: 'loginPage'})
-      },
+    goTo() {
+      this.$router.push({ name: "loginPage" });
+    },
 
-      handleSubmit() {
-        try {
-            this.formData = {
-              name: process.env.VUE_APP_NAME,
-              email: process.env.VUE_APP_LOGIN,
-              password: process.env.VUE_APP_PASSWORD,
-            };
-            this.$router.push({ name: 'homePage' });
-
-      }  catch (error) {
+    handleSubmit() {
+      try {
+        if (
+          this.formData.email === process.env.VUE_APP_LOGIN &&
+          this.formData.password === process.env.VUE_APP_PASSWORD &&
+          this.formData.name === process.env.VUE_APP_NAME
+        ) {
+          this.formData = {
+            name: process.env.VUE_APP_NAME,
+            email: process.env.VUE_APP_LOGIN,
+            password: process.env.VUE_APP_PASSWORD,
+          };
+          console.log(this.formData);
+          this.$router.push({ name: "homePage" });
+        } else {
+          console.log("The email and / or password is incorrect");
+        }
+      } catch (error) {
         this.$notify({
           type: "error",
           title: "Registration failed",
         });
       }
-    }
-
-  }
+    },
+  },
 };
 </script>
 
