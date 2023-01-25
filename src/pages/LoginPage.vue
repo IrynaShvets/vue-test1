@@ -88,8 +88,9 @@
 </template>
 
 <script>
-import { mapWritableState } from "pinia";
+import { mapWritableState, mapActions } from "pinia";
 import { useAuthStore } from "../store/index";
+
 
 export default {
   name: "LoginPage",
@@ -101,9 +102,11 @@ export default {
 
   computed: {
     ...mapWritableState(useAuthStore, ["formData"]),
+
   },
 
   methods: {
+    ...mapActions(useAuthStore, ["handleLogin(email)"]),
     goTo() {
       this.$router.push({ name: "registrationPage" });
     },
@@ -111,13 +114,14 @@ export default {
     handleSubmit() {
       try {
         if (
-          this.formData.email === process.env.VUE_APP_LOGIN &&
+          this.formData.email === process.env.VUE_APP_EMAIL &&
           this.formData.password === process.env.VUE_APP_PASSWORD
         ) {
           this.formData = {
-            email: process.env.VUE_APP_LOGIN,
+            email: process.env.VUE_APP_EMAIL,
             password: process.env.VUE_APP_PASSWORD,
           };
+          
           console.log(this.formData);
           this.$router.push({ name: "homePage" });
         } else {
@@ -133,9 +137,10 @@ export default {
 
     mounted() {
       this.formData = {
-        email: process.env.VUE_APP_LOGIN,
+        email: process.env.VUE_APP_EMAIL,
         password: process.env.VUE_APP_PASSWORD,
       };
+      this.handleLogin(this.formData.email)
     },
 
     beforeUnmount() {

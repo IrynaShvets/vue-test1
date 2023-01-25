@@ -114,13 +114,13 @@ export default {
     handleSubmit() {
       try {
         if (
-          this.formData.email === process.env.VUE_APP_LOGIN &&
+          this.formData.email === process.env.VUE_APP_EMAIL &&
           this.formData.password === process.env.VUE_APP_PASSWORD &&
           this.formData.name === process.env.VUE_APP_NAME
         ) {
           this.formData = {
             name: process.env.VUE_APP_NAME,
-            email: process.env.VUE_APP_LOGIN,
+            email: process.env.VUE_APP_EMAIL,
             password: process.env.VUE_APP_PASSWORD,
           };
           console.log(this.formData);
