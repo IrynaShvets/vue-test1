@@ -1,7 +1,8 @@
 <template>
   <container-app>
     <main>
-      <ul class="grid grid-cols-3 gap-4">
+      <section>
+        <ul class="grid grid-cols-3 gap-4">
         <li
           :id="movie.id"
           v-for="movie in moviesStore"
@@ -28,8 +29,13 @@
             
             Delete with library
           </button>
+          <button type="button" class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">
+            Додати до переглянутих
+          </button>
         </li>
       </ul>
+      </section>
+     
     </main>
   </container-app>
 </template>

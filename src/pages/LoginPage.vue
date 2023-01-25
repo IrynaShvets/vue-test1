@@ -27,7 +27,7 @@
                       Email</label
                     >
                     <input
-                      v-model="formData.email"
+                      v-model="email"
                       name="email"
                       type="email"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
@@ -42,7 +42,7 @@
                       >Password</label
                     >
                     <input
-                      v-model="formData.password"
+                      v-model="password"
                       name="password"
                       type="password"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
@@ -71,12 +71,12 @@
                       Sign In
                     </button>
                   </div>
-                  <button
+                  <!-- <button
                     @click="goTo"
                     class="py-2 px-4 bg-0 text-gray-700 border-0"
                   >
                     Registration
-                  </button>
+                  </button> -->
                 </form>
               </div>
             </div>
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { mapWritableState, mapActions } from "pinia";
+import { mapActions } from "pinia";
 import { useAuthStore } from "../store/index";
 
 
@@ -96,55 +96,36 @@ export default {
   name: "LoginPage",
   data() {
     return {
-      error: "",
+      email: "",
+      password: "",
     };
   },
 
-  computed: {
-    ...mapWritableState(useAuthStore, ["formData"]),
+  // computed: {
+  //   ...mapWritableState(useAuthStore, ["formData"]),
 
-  },
+  // },
 
   methods: {
     ...mapActions(useAuthStore, ["handleLogin(email)"]),
-    goTo() {
-      this.$router.push({ name: "registrationPage" });
-    },
+    // goTo() {
+    //   this.$router.push({ name: "registrationPage" });
+    // },
 
     handleSubmit() {
-      try {
         if (
-          this.formData.email === process.env.VUE_APP_EMAIL &&
-          this.formData.password === process.env.VUE_APP_PASSWORD
+          this.email === process.env.VUE_APP_EMAIL &&
+          this.password === process.env.VUE_APP_PASSWORD
         ) {
-          this.formData = {
-            email: process.env.VUE_APP_EMAIL,
-            password: process.env.VUE_APP_PASSWORD,
-          };
           
-          console.log(this.formData);
+          this.handleLogin(this.email);
           this.$router.push({ name: "homePage" });
         } else {
-          console.log("The email and / or password is incorrect");
+          this.$notify({
+            type: "error",
+            title: "The email and / or password is incorrect.",
+          })
         }
-      } catch (error) {
-        this.$notify({
-          type: "error",
-          title: "Login failed",
-        });
-      }
-    },
-
-    mounted() {
-      this.formData = {
-        email: process.env.VUE_APP_EMAIL,
-        password: process.env.VUE_APP_PASSWORD,
-      };
-      this.handleLogin(this.formData.email)
-    },
-
-    beforeUnmount() {
-      if (!this.formData) return;
     },
   },
 };

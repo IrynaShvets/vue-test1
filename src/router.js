@@ -5,7 +5,6 @@ import MoviePage from "./pages/MoviePage.vue";
 import DiscoverPage from "./pages/DiscoverPage.vue";
 import SearchPage from "./pages/SearchPage.vue";
 import LoginPage from "./pages/LoginPage.vue";
-import RegistrationPage from "./pages/RegistrationPage.vue";
 import {useAuthStore} from "./store/index";
 
 import { createRouter, createWebHistory } from "vue-router";
@@ -57,14 +56,6 @@ const routes = [
       hideForAuth: true,
     },
   },
-  {
-    path: "/registration",
-    name: "registrationPage",
-    component: RegistrationPage,
-    meta: {
-      hideForAuth: true,
-    },
-  },
   { 
     path: '/:pathMatch(.*)*', 
     name: 'not-found', 
@@ -80,20 +71,19 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isUser = useAuthStore['user'];
+  const userStore = useAuthStore();
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!isUser) {
+    if (!userStore.user) {
       next({ name: 'loginPage' });
     }
   }
 
   if (to.matched.some((record) => record.meta.hideForAuth)) {
-    if (isUser) {
+    if (userStore.user) {
       next({ name: 'homePage' });
     }
   }
-
   next();
 });
 

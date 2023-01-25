@@ -5,8 +5,8 @@ export const useAuthStore = defineStore("auth", {
     authUser: null,
   }),
   getters: {
-    formData: (state) => state.authUser,
-    
+    user: (state) => state.authUser,
+
   },
   
   actions: {

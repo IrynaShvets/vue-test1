@@ -42,16 +42,6 @@
                   Login
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link
-                  to="/registration"
-                  active-class="active-link"
-                  exact-active-class="exact-active-link"
-                  class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                >
-                  Registration
-                </router-link>
-              </li>
             </ul>
             <div class="lg:flex lg:flex-grow items-center"></div>
           </div>
@@ -101,7 +91,7 @@
               </router-link>
             </li>
             <li class="account-actions__item">
-              <button @click="handleLogout" class="account-actions__logout">
+              <button @click="logout" class="account-actions__logout">
                 Logout
               </button>
             </li>
@@ -161,21 +151,18 @@ export default {
 
     ...mapActions(useAuthStore, ["handleLogout"]),
 
-    handleLogout() {
-      try {
+    logout() {
         this.handleLogout;
         const { requiresAuth } = this.$route.meta;
         if (requiresAuth) {
           this.$router.push({ name: "loginPage" });
+          // this.$notify({
+          // type: "error",
+          // title: "з Logout на login page",
+        // });
         }
-      } catch (error) {
-        this.$notify({
-          type: "error",
-          title: "Logout failed",
-        });
       }
     },
-  },
 };
 </script>
 <style>
