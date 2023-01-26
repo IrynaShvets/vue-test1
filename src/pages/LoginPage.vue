@@ -107,7 +107,7 @@ export default {
   // },
 
   methods: {
-    ...mapActions(useAuthStore, ["handleLogin(email)"]),
+    ...mapActions(useAuthStore, ["handleLogin"]),
     // goTo() {
     //   this.$router.push({ name: "registrationPage" });
     // },
@@ -120,6 +120,10 @@ export default {
           
           this.handleLogin(this.email);
           this.$router.push({ name: "homePage" });
+          this.$notify({
+          type: "success",
+          title: "You have successfully logged into your account.",
+        });
         } else {
           this.$notify({
             type: "error",

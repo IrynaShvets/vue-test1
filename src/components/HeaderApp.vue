@@ -152,14 +152,16 @@ export default {
     ...mapActions(useAuthStore, ["handleLogout"]),
 
     logout() {
-        this.handleLogout;
         const { requiresAuth } = this.$route.meta;
         if (requiresAuth) {
+          this.handleLogout;
           this.$router.push({ name: "loginPage" });
-          // this.$notify({
-          // type: "error",
-          // title: "з Logout на login page",
-        // });
+          const store = useAuthStore()
+          store.$reset()
+          this.$notify({
+          type: "success",
+          title: "You have successfully logged out of your account.",
+        });
         }
       }
     },

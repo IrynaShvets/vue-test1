@@ -76,15 +76,18 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!userStore.user) {
       next({ name: 'loginPage' });
+      return;
     }
   }
 
   if (to.matched.some((record) => record.meta.hideForAuth)) {
     if (userStore.user) {
       next({ name: 'homePage' });
+      return;
     }
   }
   next();
+  return;
 });
 
 export default router;
