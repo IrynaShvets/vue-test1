@@ -24,7 +24,7 @@
 
                 Delete
               </button>
-              <button type="button" @click="showModal = true"
+              <button type="button" @click="showModal = true" :data-id="movie.id"
                 class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1">
                 Reviewed
               </button>
@@ -60,6 +60,15 @@ export default {
       showModal: false,
     };
   },
+
+  // watch: {
+  //   showModal(newValue) {
+  //     console.log(newValue);
+  //     if (newValue === true) {
+  //       this.showModal === true;
+  //     }
+  //   }
+  // },
 
   methods: {
     deleteFavoriteMovieWithLocalStorage(currentId) {

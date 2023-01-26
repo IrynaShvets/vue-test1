@@ -48,6 +48,7 @@
           text-after-input="Forward"
         />
       </div>
+
     </main>
   </container-app>
 </template>
@@ -56,6 +57,7 @@
 import ContainerApp from "../shared/container/ContainerApp.vue";
 import { getSearchMovies } from "../services/movie.service";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
+
 
 export default {
   name: "SearchPage",
