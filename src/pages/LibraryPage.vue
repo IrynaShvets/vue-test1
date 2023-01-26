@@ -24,7 +24,7 @@
 
                 Delete
               </button>
-              <button type="button"
+              <button type="button" @click="showModal = true"
                 class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1">
                 Reviewed
               </button>
@@ -33,24 +33,31 @@
           </li>
         </ul>
       </section>
+
+      <ModalApp v-show="showModal" @close-modal="showModal = false" />
+     
     </main>
   </container-app>
 </template>
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
+import ModalApp from '../components/ModalApp.vue'
 import { toRaw } from 'vue';
 
 export default {
   name: "LibraryPage",
+
   components: {
     ContainerApp,
+    ModalApp,
   },
   data() {
     return {
       movies: [],
       currentPage: 1,
       moviesStore: toRaw(JSON.parse(localStorage.getItem("movie-store") || "[]")),
+      showModal: false,
     };
   },
 

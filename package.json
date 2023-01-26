@@ -12,6 +12,7 @@
     "@kyvg/vue3-notification": "^2.8.0",
     "@ocrv/vue-tailwind-pagination": "^0.0.4",
     "autoprefixer": "^10.4.13",
+    "awesome-vue-star-rating": "^1.0.9",
     "axios": "^1.2.3",
     "core-js": "^3.8.3",
     "gh-pages": "^5.0.0",

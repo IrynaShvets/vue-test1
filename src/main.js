@@ -18,5 +18,6 @@ pinia.use(({ store }) => {
 
 app.component('header-app', HeaderApp);
 app.component('footer-app', FooterApp);
-
+// app.config.errorHandler = () => null; 
+// app.config.warnHandler = () => null;
 app.use(Notifications).use(pinia).use(router).mount('#app');
