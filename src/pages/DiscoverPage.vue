@@ -1,40 +1,40 @@
 <template>
   <container-app>
     <main>
-    <section class="grid grid-cols-2 gap-5 my-0 mx-auto bg-[#FF87AB] p-10">
-          <div v-if="genres" id="v-model-select-dynamic" class="">
-            <span class="text-white">Filter by genres</span>
-            <select v-model="genreId"  class="block
-            w-[70%]
-            mr-2
-            mt-1
-            rounded-md
-            bg-gray-100
-            border-transparent
-            outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]
-          ">
-               <option v-for="item in genres" :key="item.id" :value="item.id" class="w-inherit h-[150px] overflow-y-scroll">
-                  {{ item.name }}
-                </option>
+      <section class="grid grid-cols-2 gap-5 my-0 mx-auto bg-[#FF87AB] p-10">
+        <div v-if="genres" id="v-model-select-dynamic" class="">
+          <span class="text-white">Filter by genres</span>
+          <select
+            v-model="genreId"
+            class="block w-[70%] mr-2 mt-1 rounded-md bg-gray-100 border-transparent outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]"
+          >
+            <option
+              v-for="item in genres"
+              :key="item.id"
+              :value="item.id"
+              class="w-inherit h-[150px] overflow-y-scroll"
+            >
+              {{ item.name }}
+            </option>
           </select>
-          </div>
+        </div>
 
-          <div v-if="years" id="v-model-select-dynamic" class="">
-            <span class="text-white">Filter by years</span>
-            <select v-model="yearId" class="block
-            w-[70%]
-            mr-2
-            mt-1
-            rounded-md
-            bg-gray-100
-            border-transparent
-            outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]
-          ">
-               <option v-for="(item,index) in years" :key="index" :value="item" class="w-inherit h-[150px] overflow-y-scroll">
-                  {{ item }}
-                </option>
+        <div v-if="years" id="v-model-select-dynamic" class="">
+          <span class="text-white">Filter by years</span>
+          <select
+            v-model="yearId"
+            class="block w-[70%] mr-2 mt-1 rounded-md bg-gray-100 border-transparent outline-0 h-10 bg-indigo-200 opacity-75 text-gray-800 text-pink-900 font-mono font-black hover:opacity-75 text-[20px]"
+          >
+            <option
+              v-for="(item, index) in years"
+              :key="index"
+              :value="item"
+              class="w-inherit h-[150px] overflow-y-scroll"
+            >
+              {{ item }}
+            </option>
           </select>
-          </div>
+        </div>
       </section>
 
       <ul v-if="movies" class="grid grid-cols-3 gap-6 my-10">
@@ -92,7 +92,7 @@ export default {
       perPage: 20,
       genres: [],
       years: [],
-      searchQuery: '',
+      searchQuery: "",
       selectedItem: null,
       genreId: null,
       yearId: null,
@@ -116,46 +116,48 @@ export default {
     },
 
     getMoviesByYearAndGenres() {
-      getMoviesOfSelectedYear(this.yearId, this.genreId, this.currentPage).then((data) => {
-        this.movies = data.data.results;
-         this.totalResults = data.data.total_results;
-         data.data.results.map(el => this.yearId = el.release_date.slice(0, 4));
-         this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
-         this.currentPage = data.data.page;
-      })
+      getMoviesOfSelectedYear(this.yearId, this.genreId, this.currentPage).then(
+        (data) => {
+          this.movies = data.data.results;
+          this.totalResults = data.data.total_results;
+          this.totalResults =
+            data.data.total_results > 9980 ? 9980 : data.data.total_results;
+          this.currentPage = data.data.page;
+        }
+      );
     },
 
     getGenres() {
       getGenre().then((data) => {
         this.genres = data.data.genres;
-      })
+      });
     },
 
     getYears() {
       let startYear = 1907;
       let endYear = new Date().getFullYear();
       for (let i = endYear; i >= startYear; i -= 1) {
-      this.years.push(i);
-    }},
+        this.years.push(i);
+      }
+    },
   },
 
   created() {
-    this.getGenres(),
-    this.getYears()
+    this.getGenres(), this.getYears();
   },
 
   watch: {
     genreId(newValue) {
-      if(newValue) {
+      if (newValue) {
         this.getMoviesByYearAndGenres();
       }
     },
     yearId(newValue) {
-      if(newValue) {
+      if (newValue) {
         this.getMoviesByYearAndGenres();
       }
-    }
-  }
+    },
+  },
 };
-
-</script><style lang="scss" scoped></style>
+</script>
+<style lang="scss" scoped></style>
