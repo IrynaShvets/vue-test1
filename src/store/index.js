@@ -16,4 +16,5 @@ export const useAuthStore = defineStore("auth", {
       this.authUser = email;
     },
   },
+  persist: true,
 });

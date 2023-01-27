@@ -165,6 +165,7 @@ export default {
           this.$router.push({ name: "loginPage" });
           const store = useAuthStore()
           store.$reset()
+          
           this.$notify({
           type: "success",
           title: "You have successfully logged out of your account.",

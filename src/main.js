@@ -16,6 +16,11 @@ pinia.use(({ store }) => {
     store.router = markRaw(router)
 })
 
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+
+pinia.use(piniaPluginPersistedstate)
+
 app.component('header-app', HeaderApp);
 app.component('footer-app', FooterApp);
 // app.config.unwrapInjectedRef = true;
