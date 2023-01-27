@@ -15,18 +15,18 @@
         <button button="submit" class="btn">Submit</button>
       </form>
 
-      <StarRating :rating="mark.rating" />
+      <!-- <StarRating :rating="mark.rating" /> -->
     </div>
   </div>
 </template>
 
 <script>
-import StarRating from "../components/StarRating.vue";
+// import StarRating from "../components/StarRating.vue";
 
 export default {
-  components: {
-    StarRating,
-  },
+  // components: {
+  //   StarRating,
+  // },
 
   props: {
     id: {

@@ -9,9 +9,13 @@
                     <p class="absolute top-2 left-2 text-white">
                         {{ movie.title }}
                     </p>
-                    <p class="absolute bottom-2 left-2 text-white">
+                    <p class="absolute bottom-2 left-2 text-gray-600">
                         {{ movie.comment }}
                     </p>
+                   
+                        <StarRating :rating="movie.rating" />
+                 
+                    
                 </li>
             </ul>
         </section>
@@ -19,8 +23,11 @@
 </template>
 
 <script>
-
+import StarRating from "../components/StarRating.vue";
 export default {
+    components: {
+    StarRating,
+  },
 
     data() {
         return {
@@ -57,7 +64,7 @@ export default {
     },
 
     mounted() {
-        this.publishedBooks()
+        this.filterFavoriteMovies()
     }
 }
 </script>
