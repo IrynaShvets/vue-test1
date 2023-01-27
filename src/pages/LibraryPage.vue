@@ -1,7 +1,7 @@
 <template>
   <container-app>
     <main class="pb-20" @click.stop>
-      <section >
+      <section>
         <ul class="grid grid-cols-3 gap-10">
           <li
             :id="movie.id"
@@ -44,7 +44,7 @@
               </button>
               <button
                 type="button"
-                @click="showModalGetId(`${movie.id}`)"
+                @click="showModalGetId(movie.id)"
                 ref="button"
                 :data-id="movie.id"
                 class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1"
@@ -55,8 +55,11 @@
           </li>
         </ul>
       </section>
-      <!-- <modal-direction v-model="modalOpen"></modal-direction> -->
-      <modal-app v-show="showModal" @close-modal="showModal = false" ></modal-app>
+      <modal-app
+        v-show="showModal"
+        @close-modal="showModal = false"
+        :id="id"
+      ></modal-app>
     </main>
   </container-app>
 </template>
@@ -65,7 +68,7 @@
 import ContainerApp from "../shared/container/ContainerApp.vue";
 import ModalApp from "../components/ModalApp.vue";
 import { toRaw } from "vue";
-// computed
+
 export default {
   name: "LibraryPage",
 
@@ -85,10 +88,6 @@ export default {
     };
   },
 
-  // created() {
-  //   console.log(this.$attrs) // { onChange: () => {}  }
-  // },
-
   methods: {
     deleteFavoriteMovieWithLocalStorage(currentId) {
       console.log(currentId);
@@ -96,12 +95,9 @@ export default {
 
     showModalGetId(currentId) {
       this.showModal = true;
+      this.id = currentId;
       console.log("id show modal", currentId);
     },
-
-    // mounted() {
-    // console.log(this.$refs.button)
-  // }
   },
 };
 </script>
