@@ -51,13 +51,29 @@ export default {
   methods: {
 
     handleSubmitReview() {
-      JSON.parse(localStorage.getItem("movie-review"))
+      JSON.parse(localStorage.getItem("movie-review"));
 
-      this.reviewStore.push({
+      let existIndex = this.reviewStore.findIndex(data => data.id === this.id);
+      if (existIndex !== -1) {
+        this.$notify({
+          type: "warn",
+          title: "This movie has already been added to the reviewed.",
+        });
+      }
+
+      if (existIndex === -1) {
+        this.reviewStore.push({
         id: this.id,
         comment: this.mark.comment,
         rating: this.mark.rating,
       });
+
+        this.$notify({
+          type: "success",
+          title: "Your movie has been successfully added to reviewed.",
+        });
+
+      }
 
       localStorage.setItem("movie-review", JSON.stringify(this.reviewStore));
       this.mark.comment = "";
