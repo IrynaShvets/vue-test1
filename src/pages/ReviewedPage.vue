@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="px-20 pb-20 pt-10">
         <section>
             <ul class="grid grid-cols-3 gap-10">
                 <li :id="movie.id" v-for="movie in movies" :key="movie.id"
@@ -12,10 +12,7 @@
                     <p class="absolute bottom-2 left-2 text-gray-600">
                         {{ movie.comment }}
                     </p>
-                   
-                        <StarRating :rating="movie.rating" />
-                 
-                    
+                    <StarRating :rating="movie.rating" />
                 </li>
             </ul>
         </section>
@@ -25,6 +22,7 @@
 <script>
 import StarRating from "../components/StarRating.vue";
 export default {
+
     components: {
     StarRating,
   },
@@ -38,10 +36,8 @@ export default {
     },
 
     methods: {
-
         filterFavoriteMovies() {
             let arrayObj = [];
-
             for (const key in this.moviesStore) {
                 if (Object.hasOwnProperty.call(this.moviesStore, key)) {
                     const el = this.moviesStore[key];
@@ -50,16 +46,8 @@ export default {
                             const element = this.reviewStore[key];
                             if (el.id === element.id) {
                                 arrayObj.push({ ...el, ...element })
-                            //   arrayObj.push(el)
-                            }
-                        }
-                    }
-
-                }
-            }
-
+                            }}}}}
             this.movies = arrayObj;
-            console.log(this.movies)
         }
     },
 
@@ -69,6 +57,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

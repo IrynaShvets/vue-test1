@@ -94,7 +94,6 @@
               </button>
             </li>
           </ul>
-
           <svg class="" width="26" height="28" viewBox="0 0 16 18">
             <path
               d="M8 0C5.38286 0 3.25391 2.12896 3.25391 4.74609C3.25391 7.36323 5.38286 9.49219 8 9.49219C10.6171 9.49219 12.7461 7.36323 12.7461 4.74609C12.7461 2.12896 10.6171 0 8 0Z"
@@ -106,9 +105,6 @@
         </div>
         </nav>
       </div>
-
-      
-
       <ul class="flex">
         <li class="text-sky-900 hover:text-sky-800 mr-10">
           <a href="mailto:info@devstudio.com" class="">

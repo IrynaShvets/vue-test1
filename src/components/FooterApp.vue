@@ -1,12 +1,11 @@
 <template>
-    <footer
-      class="bg-[#1B065E] text-white fixed inset-x-0 bottom-0 p-2 text-xs flex items-center justify-center h-14 opacity-75"
-    >
-      <div>
-        &copy; 2023. All rights reserved. The information presented on the site
-        is not a public offer.
-      </div>
-    </footer>
+  <footer
+    class="bg-[#1B065E] text-white fixed inset-x-0 bottom-0 p-2 text-xs flex items-center justify-center h-14 opacity-75">
+    <div>
+      &copy; 2023. All rights reserved. The information presented on the site
+      is not a public offer.
+    </div>
+  </footer>
 </template>
 
 <script>

@@ -8,26 +8,22 @@
           </path>
         </svg>
       </button>
-      <h2>Please leave your comment and rating of this movie.</h2>
+      <h2 class="text-2xl text-[#1B065E] mb-4">Please leave your comment and rating of this movie.</h2>
       <form @click.prevent="handleSubmitReview" class="flex flex-col p-4 rounded bg-[#F5ECCD]">
         <textarea @click.stop type="text" placeholder="Comment" v-model="mark.comment" class="mb-2"></textarea>
-        <input @click.stop type="number" placeholder="Rating" v-model="mark.rating" min="1" max="5" />
+        <label class="flex flex-col">
+          <input @click.stop type="number" placeholder="Rating" v-model="mark.rating" min="1" max="5" />
+          <span class="text-gray-500 text-[12px]">From 1 to 5 (including fractional numbers)</span>
+        </label>
         <button button="submit" class="btn">Submit</button>
       </form>
-
-      <!-- <StarRating :rating="mark.rating" /> -->
     </div>
   </div>
 </template>
 
 <script>
-// import StarRating from "../components/StarRating.vue";
 
 export default {
-  // components: {
-  //   StarRating,
-  // },
-
   props: {
     id: {
       required: true
@@ -55,7 +51,6 @@ export default {
   methods: {
 
     handleSubmitReview() {
-      console.log(this.mark.comment, this.mark.rating);
       JSON.parse(localStorage.getItem("movie-review"))
 
       this.reviewStore.push({
@@ -97,7 +92,6 @@ export default {
   background-color: white;
   height: 500px;
   width: 500px;
-  /*  margin-top: 10%; */
   padding: 50px;
   border-radius: 20px;
 }

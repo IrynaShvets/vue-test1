@@ -1,16 +1,13 @@
 <template>
   <main>
     <section class="absolute w-full h-full">
-      <div
-        class="absolute top-0 w-full h-full bg-gray-900"
-        style="background-size: 100%; background-repeat: no-repeat"
-      ></div>
+      <div class="absolute top-0 w-full h-full bg-gray-900" style="background-size: 100%; background-repeat: no-repeat">
+      </div>
       <div class="container mx-auto px-4 h-full">
         <div class="flex content-center items-center justify-center h-full">
           <div class="w-full lg:w-4/12 px-4">
             <div
-              class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
-            >
+              class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
               <div class="rounded-t mb-0 px-6 py-6">
                 <div class="text-center mb-3">
                   <h2 class="text-gray-600 text-sm font-bold">Login</h2>
@@ -20,63 +17,32 @@
               <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form @submit.prevent="handleSubmit">
                   <div class="relative w-full mb-3">
-                    <label
-                      class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password"
-                    >
-                      Email</label
-                    >
-                    <input
-                      v-model="email"
-                      name="email"
-                      type="email"
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                      Email</label>
+                    <input v-model="email" name="email" type="email"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                      placeholder="Email"
-                      style="transition: all 0.15s ease 0s"
-                    />
+                      placeholder="Email" style="transition: all 0.15s ease 0s" />
                   </div>
                   <div class="relative w-full mb-3">
-                    <label
-                      class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                      for="grid-password"
-                      >Password</label
-                    >
-                    <input
-                      v-model="password"
-                      name="password"
-                      type="password"
+                    <label class="block uppercase text-gray-700 text-xs font-bold mb-2"
+                      for="grid-password">Password</label>
+                    <input v-model="password" name="password" type="password"
                       class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                      placeholder="Password"
-                      style="transition: all 0.15s ease 0s"
-                    />
+                      placeholder="Password" style="transition: all 0.15s ease 0s" />
                   </div>
                   <div>
-                    <label class="inline-flex items-center cursor-pointer"
-                      ><input
-                        id="customCheckLogin"
-                        type="checkbox"
+                    <label class="inline-flex items-center cursor-pointer"><input id="customCheckLogin" type="checkbox"
                         class="form-checkbox border-0 rounded text-gray-800 ml-1 w-5 h-5"
-                        style="transition: all 0.15s ease 0s"
-                      /><span class="ml-2 text-sm font-semibold text-gray-700"
-                        >Remember me</span
-                      ></label
-                    >
+                        style="transition: all 0.15s ease 0s" /><span
+                        class="ml-2 text-sm font-semibold text-gray-700">Remember me</span></label>
                   </div>
                   <div class="text-center mt-6">
                     <button
                       class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                      type="submit"
-                      style="transition: all 0.15s ease 0s"
-                    >
+                      type="submit" style="transition: all 0.15s ease 0s">
                       Sign In
                     </button>
                   </div>
-                  <!-- <button
-                    @click="goTo"
-                    class="py-2 px-4 bg-0 text-gray-700 border-0"
-                  >
-                    Registration
-                  </button> -->
                 </form>
               </div>
             </div>
@@ -101,38 +67,32 @@ export default {
     };
   },
 
-  // computed: {
-  //   ...mapWritableState(useAuthStore, ["formData"]),
-
-  // },
-
   methods: {
     ...mapActions(useAuthStore, ["handleLogin"]),
-    // goTo() {
-    //   this.$router.push({ name: "registrationPage" });
-    // },
 
     handleSubmit() {
-        if (
-          this.email === process.env.VUE_APP_EMAIL &&
-          this.password === process.env.VUE_APP_PASSWORD
-        ) {
-          
-          this.handleLogin(this.email);
-          this.$router.push({ name: "homePage" });
-          this.$notify({
+      if (
+        this.email === process.env.VUE_APP_EMAIL &&
+        this.password === process.env.VUE_APP_PASSWORD
+      ) {
+
+        this.handleLogin(this.email);
+        this.$router.push({ name: "homePage" });
+        this.$notify({
           type: "success",
           title: "You have successfully logged into your account.",
         });
-        } else {
-          this.$notify({
-            type: "error",
-            title: "The email and / or password is incorrect.",
-          })
-        }
+      } else {
+        this.$notify({
+          type: "error",
+          title: "The email and / or password is incorrect.",
+        })
+      }
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

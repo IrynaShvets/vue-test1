@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -6,9 +6,8 @@ export const useAuthStore = defineStore("auth", {
   }),
   getters: {
     user: (state) => state.authUser,
-
   },
-  
+
   actions: {
     handleLogout() {
       this.authUser = null;
