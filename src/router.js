@@ -5,6 +5,7 @@ import MoviePage from "./pages/MoviePage.vue";
 import DiscoverPage from "./pages/DiscoverPage.vue";
 import SearchPage from "./pages/SearchPage.vue";
 import LoginPage from "./pages/LoginPage.vue";
+import ReviewedPage from "./pages/ReviewedPage.vue";
 import {useAuthStore} from "./store/index";
 
 import { createRouter, createWebHistory } from "vue-router";
@@ -44,6 +45,14 @@ const routes = [
     path: "/search",
     name: "searchPage",
     component: SearchPage,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/reviewed",
+    name: "reviewedPage",
+    component: ReviewedPage,
     meta: {
       requiresAuth: true,
     },

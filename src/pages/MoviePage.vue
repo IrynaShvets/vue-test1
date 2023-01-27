@@ -54,15 +54,13 @@ export default {
   methods: {
     addFavoriteMovieToLocalStorage() {
       
-    JSON.parse(localStorage.getItem("movie-store")) 
+      JSON.parse(localStorage.getItem("movie-store")) 
 
-               
       this.moviesStore.push({
       id: this.movie.id,
       title: this.movie.title,
       backdrop_path: this.movie.backdrop_path,
     });
-    
     this.movie.id = "";
     localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
   },

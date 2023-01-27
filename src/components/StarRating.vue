@@ -12,11 +12,11 @@ export default {
     name: 'StarRating',
     props: {
         rating: {
-            type: Number,
+          //  type: Number,
             default: 0,
         },
         starLimit: {
-            type: Number,
+          //  type: Number,
             default: 5,
         },
     },

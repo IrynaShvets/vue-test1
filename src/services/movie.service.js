@@ -25,7 +25,3 @@ export const getMoviesOfSelectedGenre = (genre, page) => {
 export const getGenre = () => {
   return axios.get(`genre/movie/list?api_key=${API_KEY}&language=en-US`);
 }
-
-export const postRating = (id, value) => {
-  return axios.post(`movie/${id}/rating?api_key=${API_KEY}`, value);
-}

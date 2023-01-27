@@ -1,11 +1,11 @@
 <template>
   <header class="flex flex-wrap py-2 bg-[#1B065E]">
     <div class="flex items-center justify-between w-full px-10">
-      <div else>
+      <div>
         <nav
-          class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-[#FF47DA] rounded"
+          class="relative flex items-center justify-center px-2 py-3 bg-[#FF87ab] rounded"
         >
-          <div
+          <div else
             class="container px-4 mx-auto flex flex-wrap items-center justify-between"
           >
             <div
@@ -45,21 +45,9 @@
             </ul>
             <div class="lg:flex lg:flex-grow items-center"></div>
           </div>
-        </nav>
-      </div>
-
-      <div v-if="user" class="">
-          <span class="">Ім'я</span>
-          <svg class="" width="16" height="18" viewBox="0 0 16 18">
-            <path
-              d="M8 0C5.38286 0 3.25391 2.12896 3.25391 4.74609C3.25391 7.36323 5.38286 9.49219 8 9.49219C10.6171 9.49219 12.7461 7.36323 12.7461 4.74609C12.7461 2.12896 10.6171 0 8 0Z"
-            />
-            <path
-              d="M15.8216 14.0161C14.4028 11.8877 12.0282 10.6172 9.4708 10.6172H6.5292C3.9718 10.6172 1.5972 11.8877 0.178438 14.0161L0.0898438 14.1489V18H15.9102H15.9102V14.1489L15.8216 14.0161Z"
-            />
-          </svg>
-
-          <ul class="flex items-center justify-between w-full px-10">
+          <div v-if="user" class="flex items-center justify-center">
+          
+          <ul class="flex items-center justify-center w-full px-10">
             <li class="nav-item">
               <router-link
                 to="/discover"
@@ -90,13 +78,36 @@
                 Library
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link
+                to="/reviewed"
+                active-class="active-link"
+                exact-active-class="exact-active-link"
+                class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+              >
+              Reviewed
+              </router-link>
+            </li>
             <li class="account-actions__item">
-              <button @click="logout" class="account-actions__logout">
+              <button @click="logout" class="py-1 px-2 rounded bg-white">
                 Logout
               </button>
             </li>
           </ul>
+
+          <svg class="" width="26" height="28" viewBox="0 0 16 18">
+            <path
+              d="M8 0C5.38286 0 3.25391 2.12896 3.25391 4.74609C3.25391 7.36323 5.38286 9.49219 8 9.49219C10.6171 9.49219 12.7461 7.36323 12.7461 4.74609C12.7461 2.12896 10.6171 0 8 0Z"
+            />
+            <path
+              d="M15.8216 14.0161C14.4028 11.8877 12.0282 10.6172 9.4708 10.6172H6.5292C3.9718 10.6172 1.5972 11.8877 0.178438 14.0161L0.0898438 14.1489V18H15.9102H15.9102V14.1489L15.8216 14.0161Z"
+            />
+          </svg>
         </div>
+        </nav>
+      </div>
+
+      
 
       <ul class="flex">
         <li class="text-sky-900 hover:text-sky-800 mr-10">
