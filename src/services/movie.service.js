@@ -14,8 +14,8 @@ export const getSearchMovies = (searchQuery, page) => {
   return axios.get(`search/movie?api_key=${API_KEY}&query=${searchQuery}&page=${page}&include_adult=false`);
 };
 
-export const getMoviesOfSelectedYear = (year, page) => {
-  return axios.get(`discover/movie?api_key=${API_KEY}&primary_release_year=${year}&page=${page}&include_adult=false`);
+export const getMoviesOfSelectedYear = (year, genre, page) => {
+  return axios.get(`discover/movie?api_key=${API_KEY}&primary_release_year=${year}&with_genres=${genre}&page=${page}&include_adult=false`);
 };
 
 export const getMoviesOfSelectedGenre = (genre, page) => {

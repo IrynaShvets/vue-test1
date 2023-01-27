@@ -4,7 +4,7 @@
     <section class="grid grid-cols-2 gap-5 my-0 mx-auto bg-[#FF87AB] p-10">
           <div v-if="genres" id="v-model-select-dynamic" class="">
             <span class="text-white">Filter by genres</span>
-            <select v-model="genreId" class="block
+            <select v-model="genreId"  class="block
             w-[70%]
             mr-2
             mt-1
@@ -74,7 +74,7 @@
 
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
-import { getMoviesOfSelectedGenre, getGenre, getMoviesOfSelectedYear } from "../services/movie.service";
+import { getGenre, getMoviesOfSelectedYear } from "../services/movie.service";
 import VueTailwindPagination from "@ocrv/vue-tailwind-pagination";
 
 export default {
@@ -115,17 +115,8 @@ export default {
       this.getMovies(this.currentPage);
     },
 
-    getMoviesByGenre() {
-      getMoviesOfSelectedGenre(this.genreId, this.currentPage).then((data) => {
-        this.movies = data.data.results;
-         this.totalResults = data.data.total_results;
-         this.totalResults = (data.data.total_results > 9980) ? 9980 : data.data.total_results;
-         this.currentPage = data.data.page;
-      })
-    },
-
-    getMoviesByYear() {
-      getMoviesOfSelectedYear(this.yearId, this.currentPage).then((data) => {
+    getMoviesByYearAndGenres() {
+      getMoviesOfSelectedYear(this.yearId, this.genreId, this.currentPage).then((data) => {
         this.movies = data.data.results;
          this.totalResults = data.data.total_results;
          data.data.results.map(el => this.yearId = el.release_date.slice(0, 4));
@@ -156,12 +147,12 @@ export default {
   watch: {
     genreId(newValue) {
       if(newValue) {
-        this.getMoviesByGenre();
+        this.getMoviesByYearAndGenres();
       }
     },
     yearId(newValue) {
       if(newValue) {
-        this.getMoviesByYear();
+        this.getMoviesByYearAndGenres();
       }
     }
   }
