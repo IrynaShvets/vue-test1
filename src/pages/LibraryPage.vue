@@ -73,7 +73,6 @@ export default {
     showModalGetId(currentId) {
       this.showModal = true;
       this.id = currentId;
-      console.log("id show modal", currentId);
     },
   },
 };

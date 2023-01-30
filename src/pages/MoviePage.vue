@@ -28,7 +28,7 @@
           </p>
 
           <button @click="addFavoriteMovieToLocalStorage" type="submit"
-            class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors">Add
+            class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white focus:outline-none transition-colors outline-0 border-0">Add
             to favorite movies</button>
         </div>
       </div>

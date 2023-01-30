@@ -55,6 +55,9 @@
             <p class="absolute left-2 bottom-2 text-xl text-red-200">
               {{ movie.title }}
             </p>
+            <p class="absolute left-2 top-2 text-xl text-red-200">
+              {{ movie.release_date }}
+            </p>
           </router-link>
         </li>
       </ul>

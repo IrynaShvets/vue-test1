@@ -10,9 +10,9 @@
       </button>
       <h2 class="text-2xl text-[#1B065E] mb-4">Please leave your comment and rating of this movie.</h2>
       <form @click.prevent="handleSubmitReview" class="flex flex-col p-4 rounded bg-[#F5ECCD]">
-        <textarea @click.stop type="text" placeholder="Comment" v-model="mark.comment" class="mb-2"></textarea>
+        <textarea @click.stop type="text" placeholder="Comment" v-model="mark.comment" class="mb-2 outline-0 border-0"></textarea>
         <label class="flex flex-col">
-          <input @click.stop type="number" placeholder="Rating" v-model="mark.rating" min="1" max="5" />
+          <input @click.stop type="number" placeholder="Rating" v-model="mark.rating" min="1" max="5" class="w-full outline-0 border-0" />
           <span class="text-gray-500 text-[12px]">From 1 to 5 (including fractional numbers)</span>
         </label>
         <button button="submit" class="btn">Submit</button>
@@ -72,6 +72,8 @@ export default {
           type: "success",
           title: "Your movie has been successfully added to reviewed.",
         });
+
+        this.$router.push({ name: "reviewedPage" });
 
       }
 
