@@ -147,4 +147,9 @@ p {
   border-radius: 16px;
   margin-top: 50px;
 }
+
+.btn:focus {
+  outline: none;
+}
+
 </style>

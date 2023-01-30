@@ -21,11 +21,11 @@
                 <span>More info</span>
               </router-link>
               <button @click="deleteFavoriteMovieWithLocalStorage(movie.id)" :data-id="movie.id" type="button"
-                class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1">
+                class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1 focus:outline-none">
                 Delete
               </button>
               <button type="button" @click="showModalGetId(movie.id)" ref="button" :data-id="movie.id"
-                class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1">
+                class="w-[350px] h-[40px] p-2 bg-indigo-200 hover:bg-purple-500 text-gray-800 hover:text-white transition-colors flex-1 focus:outline-none">
                 Reviewed
               </button>
             </div>
@@ -44,7 +44,6 @@
 <script>
 import ContainerApp from "../shared/container/ContainerApp.vue";
 import ModalApp from "../components/ModalApp.vue";
-import { toRaw } from "vue";
 
 export default {
   name: "LibraryPage",
@@ -57,9 +56,7 @@ export default {
     return {
       movies: [],
       currentPage: 1,
-      moviesStore: toRaw(
-        JSON.parse(localStorage.getItem("movie-store") || "[]")
-      ),
+      moviesStore: JSON.parse(localStorage.getItem("movie-store") || "[]"),
       showModal: false,
       id: null,
     };
@@ -67,8 +64,27 @@ export default {
 
   methods: {
     deleteFavoriteMovieWithLocalStorage(currentId) {
-      console.log(currentId);
-    },
+      this.id = currentId;
+      JSON.parse(localStorage.getItem("movie-store"));
+      let existIndex = this.moviesStore.find(data => data.id === currentId);
+      let arrObjs = [];
+      for (const key in this.moviesStore) {
+        if (Object.hasOwnProperty.call(this.moviesStore, key)) {
+          const element = this.moviesStore[key];
+          if (element === existIndex) {
+            this.$notify({
+            type: "success",
+            title: "The movie was successfully removed from the library.",
+            });
+          }
+          if (element !== existIndex) {
+            arrObjs.push(element);
+          }
+        }
+      }
+      this.moviesStore = arrObjs;
+      localStorage.setItem("movie-store", JSON.stringify(this.moviesStore));
+  },
 
     showModalGetId(currentId) {
       this.showModal = true;

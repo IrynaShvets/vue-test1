@@ -48,6 +48,7 @@ export default {
                                 arrayObj.push({ ...el, ...element })
                             }}}}}
             this.movies = arrayObj;
+            localStorage.setItem("movie-review", JSON.stringify(this.movies));
         }
     },
 
